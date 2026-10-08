@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Complaint Box</title>
+<style>
+body{margin:0;font-family:Arial;background:#eef6f8;}
+header{background:#0f4c5c;color:white;text-align:center;padding:15px;}
+.box{
+  background:white;
+  width:350px;
+  margin:50px auto;
+  padding:25px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 2px 10px gray;
+}
+input, textarea{
+  width:90%;
+  padding:10px;
+  margin:10px 0;
+  border:1px solid gray;
+  border-radius:5px;
+  font-size:15px;
+}
+#submitBtn{background:#0f4c5c;color:white;padding:8px 22px;border:none;border-radius:6px;cursor:pointer;}
+#msg{color:green;font-weight:bold;font-size:18px;margin-top:15px;display:none;}
+</style>
+</head>
+<body>
+<header><h2>Complaint Box</h2></header>
+
+<div class="box">
+  <!-- Form Part -->
+  <div id="formArea">
+    <input type="text" id="name" placeholder="Your Name">
+    <input type="text" id="facility" placeholder="Facility Name">
+    <textarea id="problem" placeholder="Your Problem" rows="3"></textarea>
+    <br>
+    <button id="submitBtn" onclick="submitComplaint()">Submit</button>
+    <br><br>
+    <button onclick="window.location.href='index.html'">⬅️ Back to Home</button>
+  </div>
+
+  <!-- Success Message mattum - ithu thaanda venum -->
+  <div id="msg">
+    Complaint Submitted Successfully ✅<br><br>
+    <button onclick="window.location.href='index.html'">Back to Home</button>
+  </div>
+</div>
+
+<script>
+function submitComplaint(){
+  let n = document.getElementById("name").value;
+  let f = document.getElementById("facility").value;
+  let p = document.getElementById("problem").value;
+
+  if(n=="" || f=="" || p==""){
+    alert("Fill all fields da macha!");
+    return;
+  }
+
+  // Ippa form ah hide panni message mattum kaamikum
+  document.getElementById("formArea").style.display = "none";
+  document.getElementById("msg").style.display = "block";
+}
+</script>
+</body>
+</html>

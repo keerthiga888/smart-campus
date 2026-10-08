@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Campus & Facility</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background: #f2f5f8;
+            margin: 0;
+        }
+
+        header {
+            background: #1e3a5f;
+            color: white;
+            padding: 30px;
+        }
+
+        .card {
+            background: white;
+            width: 300px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px #aaa;
+        }
+
+        button {
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #315f8c;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Smart Campus & Facility</h1>
+    <p>Campus Facility Management System</p>
+</header>
+
+<div class="card">
+    <h2>Facilities</h2>
+    <p>View and manage campus facilities</p>
+
+    <button onclick="location.href='/facilities.html'">
+        Open Facilities
+    </button>
+</div>
+
+</body>
+</html>

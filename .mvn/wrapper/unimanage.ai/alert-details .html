@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Alert Details</title>
+</head>
+<body>
+    <h1>Campus Alert Details</h1>
+
+    <h3 id="type"></h3>
+    <p id="message"></p>
+
+    <button onclick="history.back()">Back</button>
+    <a href="index.html">Back to Home</a>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+
+        document.getElementById("type").textContent =
+            "Alert Type: " + (params.get("type") || "");
+
+        document.getElementById("message").textContent =
+            params.get("message") || "No alert message found.";
+    </script>
+</body>
+</html>
