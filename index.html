@@ -1,75 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Smart Campus - G.Keerthiga | BCA 3rd Year</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{display:flex;background:#f5f7ff}
-.sidebar{width:70px;background:#7c5cff;height:100vh;position:fixed;display:flex;flex-direction:column;align-items:center;padding:15px 0;gap:20px}
-.sidebar a{width:45px;height:45px;background:rgba(255,255,255,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;font-size:22px}
-.sidebar a.active,.sidebar a:hover{background:white;color:#7c5cff}
-.main{margin-left:70px;flex:1;padding:20px}
-.header{background:#0a1931;color:white;padding:20px;border-radius:15px;text-align:center;margin-bottom:20px}
-.header h1{font-size:28px}
-.header p{opacity:0.8;font-size:14px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-.card{background:white;padding:25px;border-radius:20px;box-shadow:0 5px 20px rgba(0,0,0,0.08);text-align:center}
-.card h3{color:#7c5cff;margin:10px 0}
-.card p{color:#666;font-size:14px;margin-bottom:15px}
-.btn{background:#7c5cff;color:white;border:none;padding:10px 25px;border-radius:20px;cursor:pointer;font-weight:600}
-.btn:hover{background:#6a4ae0}
-.badge{background:#eef0ff;color:#7c5cff;padding:5px 10px;border-radius:10px;font-size:12px}
+body{display:flex;background:#f5f7ff;min-height:100vh}
+.sidebar{width:70px;background:#7c5cff;height:100vh;position:fixed;display:flex;flex-direction:column;align-items:center;padding:15px 0;gap:15px;z-index:10}
+.sidebar a{width:48px;height:48px;background:rgba(255,255,255,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;font-size:22px;cursor:pointer}
+.sidebar a.active,.sidebar a:hover{background:white;color:#7c5cff;transform:scale(1.05)}
+.main{margin-left:70px;flex:1;padding:20px;max-width:1200px}
+.top{font-size:13px;color:#666;margin-bottom:10px}
+.card{background:white;border-radius:20px;padding:20px;box-shadow:0 5px 20px rgba(0,0,0,0.06);margin-bottom:18px}
+.welcome{background:linear-gradient(135deg,#7c5cff,#9d7bff);color:white;border-radius:20px;padding:25px;text-align:center}
+.welcome h2{font-size:24px}
+.welcome p{opacity:0.9;margin:8px 0}
+.btn{background:#7c5cff;color:white;border:none;padding:10px 22px;border-radius:20px;cursor:pointer;font-weight:600;margin:5px}
+.btn-white{background:white;color:#7c5cff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.book{display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid #f0f0f0}
+.badge{padding:4px 10px;border-radius:8px;font-size:12px;font-weight:600}
+.b-blue{background:#e6f0ff;color:#3b82f6}.b-green{background:#dcfce7;color:#16a34a}.b-purple{background:#f3e8ff;color:#9333ea}
+.purple-pill{background:#7c5cff;color:white;padding:8px 15px;border-radius:20px;display:inline-block;font-size:13px;margin-top:8px}
+.hidden{display:none}
+.stat{font-size:28px;font-weight:800;color:#7c5cff}
+.footer{text-align:center;color:#999;font-size:12px;margin:30px 0}
 </style>
 </head>
 <body>
 <div class="sidebar">
-<a class="active">🎓</a>
-<a href="#library">📚</a>
-<a href="#lab">💻</a>
-<a href="#sports">🏀</a>
-<a href="#facilities">🏢</a>
+<a class="active" onclick="showPage('dashboard',this)" title="Dashboard">🎓</a>
+<a onclick="showPage('profile',this)" title="Profile">👤</a>
+<a onclick="showPage('library',this)" title="Library">📚</a>
+<a onclick="showPage('mybooks',this)" title="My Books">📖</a>
+<a onclick="showPage('ai',this)" title="AI">🤖</a>
+<a onclick="showPage('learning',this)" title="Learning">📊</a>
+<a onclick="showPage('settings',this)" title="Settings">⚙️</a>
 </div>
 <div class="main">
-<div class="header">
-<h1>🏫 SMART CAMPUS</h1>
-<p>Developed by G.Keerthiga - BCA 3rd Year<br>Smart Campus Management System</p>
-</div>
+<div class="top">🔗 keerthiga888.github.io/smart-campus/ | Developed by G.Keerthiga BCA 3rd Year</div>
 
-<div class="cards">
-<div class="card" id="library">
-<div style="font-size:40px">📚</div>
-<h3>Library</h3>
-<p>Books & Issue Management<br><span class="badge">5 Books Available</span></p>
-<button class="btn" onclick="alert('Library Module: Books Borrowing System - Coming Soon! Designed by G.Keerthiga BCA 3rd Year')">Open</button>
+<div id="dashboard" class="page">
+<div class="card welcome">
+<div style="background:rgba(255,255,255,0.2);display:inline-block;padding:5px 12px;border-radius:20px;font-size:12px;margin-bottom:10px">✨ AI Powered Learning</div>
+<h2>Welcome, Keerthiga! 👋</h2>
+<p>Manage your library and improve your learning with Smart Campus AI.</p>
+<button class="btn btn-white" onclick="showPage('library',document.querySelectorAll('.sidebar a')[2])">📚 Explore Library</button>
+<button class="btn" style="background:rgba(255,255,255,0.2)" onclick="showPage('ai',document.querySelectorAll('.sidebar a')[4])">Get AI Recommendation</button>
 </div>
-
-<div class="card" id="lab">
-<div style="font-size:40px">💻</div>
-<h3>Computer Lab</h3>
-<p>Lab Booking System<br><span class="badge">Lab 1 - Free</span></p>
-<button class="btn" onclick="alert('Computer Lab Booking - Lab Management System by G.Keerthiga')">Open</button>
+<div class="grid">
+<div class="card" style="text-align:center"><div>📚</div><div class="stat">5</div><p>Available Books</p></div>
+<div class="card" style="text-align:center"><div>📖</div><div class="stat">3</div><p>My Books</p></div>
+<div class="card" style="text-align:center"><div>📈</div><div class="stat">100%</div><p>Learning Progress</p></div>
+<div class="card" style="text-align:center"><div>🤖</div><div class="stat">3</div><p>AI Suggestions</p></div>
 </div>
-
-<div class="card" id="sports">
-<div style="font-size:40px">🏀</div>
-<h3>Sports</h3>
-<p>Ground Booking<br><span class="badge">Ground Available</span></p>
-<button class="btn" onclick="alert('Sports Ground Booking System')">Open</button>
-</div>
-
-<div class="card" id="facilities">
-<div style="font-size:40px">🏢</div>
-<h3>Facilities</h3>
-<p>Auditorium, Canteen, Hostel<br><span class="badge">4 Facilities</span></p>
-<button class="btn" onclick="alert('Facilities Management - Auditorium, Canteen, Hostel Booking')">View</button>
+<div class="card"><h3>Recent Books <span style="float:right;color:#7c5cff;font-size:13px;cursor:pointer" onclick="showPage('library',document.querySelectorAll('.sidebar a')[2])">View All →</span></h3>
+<div class="book"><span class="badge b-blue">AI</span><div><b>Artificial Intelligence</b><br><small>Stuart Russell</small></div></div>
+<div class="book"><span class="badge b-purple">JS</span><div><b>JavaScript Guide</b><br><small>David Flanagan</small></div></div>
+<div class="book"><span class="badge b-green">DB</span><div><b>Database Systems</b><br><small>Raghu Ramakrishnan</small></div></div>
 </div>
 </div>
 
-<div style="margin-top:30px;text-align:center;color:#888;font-size:13px">
-© 2025 Smart Campus | Developed by G.Keerthiga BCA 3rd Year | keerthiga888.github.io/smart-campus
+<div id="profile" class="page hidden">
+<div class="card" style="text-align:center"><div style="width:80px;height:80px;background:#7c5cff;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto">G</div><h2 style="margin-top:10px">G. Keerthiga</h2><p>BCA 3rd Year Student</p><span class="purple-pill">🌟 Active Student</span></div>
+<div class="card"><h3>Personal Information</h3><br><p><b>Full Name:</b> G. Keerthiga</p><br><p><b>Email:</b> keerthiga@example.com</p><br><p><b>Course:</b> BCA</p><br><p><b>Department:</b> Computer Applications</p><br><p><b>Year:</b> 3rd Year</p></div>
+</div>
+
+<div id="library" class="page hidden">
+<div class="card"><h2>📚 Library</h2><p>Search and borrow your favorite books.</p><br><input placeholder="🔍 Search books..." style="width:100%;padding:12px;border-radius:12px;border:1px solid #ddd"></div>
+<div class="card"><div class="book"><span class="badge b-blue">AI</span><div style="flex:1"><b>Artificial Intelligence</b><br><small>Stuart Russell</small></div><button class="btn" onclick="borrow(this)">Borrow</button></div>
+<div class="book"><span class="badge b-green">Prog</span><div style="flex:1"><b>Java Programming</b><br><small>Herbert Schildt</small></div><button class="btn" onclick="borrow(this)">Borrow</button></div>
+<div class="book"><span class="badge b-purple">Web</span><div style="flex:1"><b>Web Development</b><br><small>Jon Duckett</small></div><button class="btn" onclick="borrow(this)">Borrow</button></div>
+<div class="book"><span class="badge b-blue">AI</span><div style="flex:1"><b>Machine Learning</b><br><small>Tom Mitchell</small></div><button class="btn" onclick="borrow(this)">Borrow</button></div>
 </div>
 </div>
+
+<div id="mybooks" class="page hidden">
+<div class="card"><h2>My Books</h2><p>Your borrowed books collection.</p></div>
+<div class="card"><b>Java Programming</b> - Herbert Schildt<br><small>0% completed</small> <span style="float:right"><button class="btn">+10%</button> <button class="btn" style="background:#eee;color:#333">Return</button></span></div>
+<div class="card"><b>Database Systems</b> - Raghu Ramakrishnan<br><small>Due: 24/10/2025</small> <span style="float:right"><button class="btn">+10%</button> <button class="btn" style="background:#eee;color:#333">Return</button></span></div>
+</div>
+
+<div id="ai" class="page hidden">
+<div class="card welcome"><h3>🤖 AI Learning Assistant</h3><p>Get personalized book recommendations</p><br><button class="btn btn-white" onclick="alert('AI: Based on your BCA background, we recommend AI & Web Development!')">✨ Generate Recommendation</button></div>
+<div class="card"><span class="badge b-green">Recommended</span><h3>Web Development</h3><p>Improve your HTML, CSS and JavaScript skills.</p></div>
+<div class="card"><span class="badge b-blue">Recommended</span><h3>Artificial Intelligence</h3><p>Perfect for learning AI fundamentals.</p></div>
+</div>
+
+<div id="learning" class="page hidden">
+<div class="card"><h2>Weekly Learning Plan</h2></div>
+<div class="card"><b>WEEK 01: HTML & CSS</b><br><small>Learn web page structure</small><br><br><span class="badge b-green">✓ Completed</span></div>
+<div class="card"><b>WEEK 02: JavaScript</b><br><small>Learn variables, functions and DOM</small><br><br><span class="badge b-green">✓ Completed</span></div>
+<div class="card"><b>WEEK 03: Java & Spring Boot</b><br><small>Learn backend and REST API</small><br><br><button class="btn" onclick="this.innerHTML='✓ Completed';this.style.background='#16a34a'">Mark Complete</button></div>
+<div class="card"><b>WEEK 04: AI & Machine Learning</b><br><small>Learn AI concepts</small><br><br><button class="btn" onclick="this.innerHTML='✓ Completed';this.style.background='#16a34a'">Mark Complete</button></div>
+</div>
+
+<div id="settings" class="page hidden">
+<div class="card"><h2>Settings</h2></div>
+<div class="card"><h3>Profile</h3><br><p>Name: G. Keerthiga</p><p>Email: keerthiga@example.com</p><p>Course: BCA 3rd Year</p><br><button class="btn">💾 Save Changes</button></div>
+<div class="card"><h3>🏫 Smart Campus Info</h3><p>Developed by <b>G. Keerthiga - BCA 3rd Year</b></p><p>Project: Smart Campus Management System</p></div>
+</div>
+
+<div class="footer">© 2025 Smart Campus | Developed by G.Keerthiga BCA 3rd Year</div>
+</div>
+
+<script>
+function showPage(id,el){
+ document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
+ document.getElementById(id).classList.remove('hidden');
+ document.querySelectorAll('.sidebar a').forEach(a=>a.classList.remove('active'));
+ if(el) el.classList.add('active');
+ window.scrollTo(0,0);
+}
+function borrow(btn){ btn.innerHTML='✓ Borrowed'; btn.style.background='#16a34a'; alert('Book borrowed! Check My Books section.'); }
+</script>
 </body>
 </html>
