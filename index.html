@@ -1,55 +1,1381 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Uni Management - Smart Campus Faculty | G.Keerthiga</title>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Smart Campus & Facility - G. Keerthiga</title>
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{display:flex;background:#f6f7ff;min-height:100vh}
-.sidebar{width:72px;background:linear-gradient(180deg,#7c5cff,#5a36d6);height:100vh;position:fixed;display:flex;flex-direction:column;align-items:center;padding:18px 0;gap:14px;z-index:100}
-.sidebar a{width:46px;height:46px;background:rgba(255,255,255,.18);border-radius:12px;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;font-size:20px;cursor:pointer}
-.sidebar a.active,.sidebar a:hover{background:white;color:#7c5cff}
-.main{margin-left:72px;flex:1;padding:22px;max-width:1250px}
-.card{background:white;border-radius:20px;padding:22px;box-shadow:0 6px 24px rgba(124,92,255,.08);margin-bottom:18px}
-.welcome{background:linear-gradient(135deg,#7c5cff,#9d7bff);color:white;border-radius:22px;padding:28px}
-.btn{background:#7c5cff;color:white;border:none;padding:11px 24px;border-radius:24px;cursor:pointer;font-weight:600;margin:5px}
-.btn-white{background:white;color:#7c5cff}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
-.hidden{display:none}
-.profile-box{background:rgba(255,255,255,.15);border-radius:16px;padding:16px;margin-top:16px;text-align:left}
-.book{display:flex;gap:14px;padding:14px;border:1px solid #f0f0f0;border-radius:14px;margin-bottom:10px;align-items:center}
-</style></head><body>
-<div class="sidebar">
-<a class="active" onclick="showPage('dashboard',this)">🏠</a>
-<a onclick="showPage('faculty',this)">👨‍🏫</a>
-<a onclick="showPage('students',this)">👩‍🎓</a>
-<a onclick="showPage('library',this)">📚</a>
-<a onclick="showPage('mybooks',this)">📖</a>
-<a onclick="showPage('ai',this)">🤖</a>
-<a onclick="showPage('profile',this)">👤</a>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f1f4f9;
+    color: #263348;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 235px;
+    background: #172b46;
+    color: white;
+    padding: 22px 12px;
+    flex-shrink: 0;
+}
+
+.sidebar h2 {
+    font-size: 21px;
+    padding: 8px;
+    margin-bottom: 8px;
+}
+
+.student-name {
+    color: #ffffff;
+    font-size: 14px;
+    padding: 8px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid #49627f;
+}
+
+.sidebar button {
+    display: block;
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: #e1eaf5;
+    text-align: left;
+    padding: 13px 12px;
+    margin: 3px 0;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+    background: #29496e;
+    color: white;
+}
+
+main {
+    flex: 1;
+    min-width: 0;
+    padding: 25px;
+}
+
+header {
+    background: white;
+    padding: 22px;
+    border-radius: 10px;
+    margin-bottom: 22px;
+    box-shadow: 0 2px 8px #0000000a;
+}
+
+header h1 {
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+header p {
+    color: #68768a;
+    margin-top: 5px;
+}
+
+h2.section-title {
+    margin-bottom: 18px;
+    font-size: 21px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(130px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: white;
+    border-radius: 9px;
+    padding: 20px;
+    border-left: 4px solid #3478d4;
+    box-shadow: 0 2px 8px #0000000a;
+}
+
+.card p {
+    color: #6b7889;
+    margin-bottom: 12px;
+}
+
+.card h2 {
+    font-size: 27px;
+}
+
+.panel {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
+
+.toolbar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+input,
+select {
+    padding: 11px;
+    border: 1px solid #cbd4e0;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+button.action {
+    border: none;
+    background: #2878d4;
+    color: white;
+    border-radius: 5px;
+    padding: 11px 15px;
+    cursor: pointer;
+}
+
+button.action:hover {
+    background: #195ca9;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 540px;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 14px 10px;
+    border-bottom: 1px solid #e6ebf1;
+}
+
+th {
+    background: #f4f7fb;
+}
+
+.status {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 15px;
+    font-size: 12px;
+    background: #e7edf5;
+}
+
+.Critical {
+    background: #ffe0e0;
+    color: #b42323;
+}
+
+.Warning {
+    background: #fff0cc;
+    color: #8c5b00;
+}
+
+.Resolved {
+    background: #d9f6e5;
+    color: #167647;
+}
+
+.facility-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.facility {
+    padding: 20px;
+    background: #f7f9fc;
+    border: 1px solid #e0e7f0;
+    border-radius: 8px;
+}
+
+.facility h3 {
+    margin-bottom: 12px;
+}
+
+.facility p {
+    margin-bottom: 10px;
+    color: #64748b;
+}
+
+.hidden {
+    display: none;
+}
+
+.note {
+    color: #64748b;
+    font-size: 13px;
+    margin-top: 15px;
+}
+
+.library-books {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.book {
+    background: #f7f9fc;
+    border: 1px solid #e0e7f0;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.book h3 {
+    margin-bottom: 10px;
+}
+
+@media (max-width: 800px) {
+
+    .layout {
+        display: block;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .sidebar button {
+        width: 48%;
+        display: inline-block;
+    }
+
+    main {
+        padding: 14px;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .facility-grid,
+    .library-books {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <h2>🏫 Smart Campus</h2>
+
+    <div class="student-name">
+        Student: <strong>G. Keerthiga</strong>
+    </div>
+
+    <button class="active"
+            onclick="showPage('Dashboard',this)">
+        📊 Dashboard
+    </button>
+
+    <button onclick="showPage('Facilities',this)">
+        🏢 Facilities
+    </button>
+
+    <button onclick="showPage('Library',this)">
+        📚 Library
+    </button>
+
+    <button onclick="showPage('All Alerts',this)">
+        🚨 All Alerts
+    </button>
+
+    <button onclick="showPage('Critical Alerts',this)">
+        🔴 Critical Alerts
+    </button>
+
+    <button onclick="showPage('Warning Alerts',this)">
+        ⚠️ Warning Alerts
+    </button>
+
+    <button onclick="showPage('Resolved Alerts',this)">
+        ✅ Resolved Alerts
+    </button>
+
+    <button onclick="showPage('AI Decisions',this)">
+        🤖 AI Decisions
+    </button>
+
+    <button onclick="showPage('Analytics',this)">
+        📈 Analytics
+    </button>
+
+    <button onclick="showPage('Performance',this)">
+        ⚡ Performance
+    </button>
+
+    <button onclick="showPage('AI Model',this)">
+        🧠 AI Model
+    </button>
+
+    <button onclick="showPage('System Status',this)">
+        🖥️ System Status
+    </button>
+
+    <button onclick="showPage('Database',this)">
+        🗄️ Database
+    </button>
+
+    <button onclick="showPage('Users',this)">
+        👥 Users
+    </button>
+
+</aside>
+
+
+<!-- MAIN -->
+<main>
+
+<header>
+
+    <h1 id="pageTitle">
+        Smart Campus Dashboard
+    </h1>
+
+    <p>
+        Manage campus facilities, alerts and system activities
+    </p>
+
+    <p>
+        <strong>Student Name: G. Keerthiga</strong>
+    </p>
+
+</header>
+
+
+<!-- DASHBOARD -->
+<section id="Dashboard" class="page">
+
+    <h2 class="section-title">
+        Campus Overview
+    </h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <p>Total Facilities</p>
+            <h2 id="facilityCount">4</h2>
+        </div>
+
+        <div class="card">
+            <p>Total Alerts</p>
+            <h2 id="alertCount">3</h2>
+        </div>
+
+        <div class="card">
+            <p>Critical Alerts</p>
+            <h2 id="criticalCount">1</h2>
+        </div>
+
+        <div class="card">
+            <p>Resolved Alerts</p>
+            <h2 id="resolvedCount">1</h2>
+        </div>
+
+    </div>
+
+
+    <div class="panel">
+
+        <h2 class="section-title">
+            Recent Alerts
+        </h2>
+
+        <div id="recentAlerts"></div>
+
+    </div>
+
+</section>
+
+
+<!-- FACILITIES -->
+<section id="Facilities" class="page hidden">
+
+    <h2 class="section-title">
+        Campus Facilities
+    </h2>
+
+    <div class="panel">
+
+        <div class="toolbar">
+
+            <input
+                id="facilityName"
+                placeholder="Facility name"
+            >
+
+            <input
+                id="facilityLocation"
+                placeholder="Location / Block"
+            >
+
+            <select id="facilityStatus">
+
+                <option>Available</option>
+                <option>Maintenance</option>
+                <option>Unavailable</option>
+
+            </select>
+
+            <button
+                class="action"
+                onclick="addFacility()">
+                + Add Facility
+            </button>
+
+        </div>
+
+        <div
+            id="facilityList"
+            class="facility-grid">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LIBRARY -->
+<section id="Library" class="page hidden">
+
+    <h2 class="section-title">
+        📚 College Library
+    </h2>
+
+    <div class="panel">
+
+        <p>
+            Books, digital resources and reading facilities.
+        </p>
+
+        <br>
+
+        <h3>
+            Available Books
+        </h3>
+
+        <br>
+
+        <div class="library-books">
+
+            <div class="book">
+
+                <h3>📘 Java Programming</h3>
+
+                <p>
+                    Programming concepts and Java fundamentals.
+                </p>
+
+                <button
+                    class="action"
+                    onclick="bookMessage('Java Programming')">
+                    Book Details
+                </button>
+
+            </div>
+
+
+            <div class="book">
+
+                <h3>📗 Database Management</h3>
+
+                <p>
+                    DBMS, SQL and database concepts.
+                </p>
+
+                <button
+                    class="action"
+                    onclick="bookMessage('Database Management')">
+                    Book Details
+                </button>
+
+            </div>
+
+
+            <div class="book">
+
+                <h3>📕 Web Development</h3>
+
+                <p>
+                    HTML, CSS and JavaScript learning resources.
+                </p>
+
+                <button
+                    class="action"
+                    onclick="bookMessage('Web Development')">
+                    Book Details
+                </button>
+
+            </div>
+
+        </div>
+
+        <br>
+
+        <button
+            class="action"
+            onclick="showPage('Dashboard',
+            document.querySelector('.sidebar button'))">
+            ← Back to Home
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ALL ALERTS -->
+<section id="All Alerts" class="page hidden">
+
+    <h2 class="section-title">
+        All Alerts
+    </h2>
+
+    <div class="panel">
+
+        <div class="toolbar">
+
+            <input
+                id="alertMessage"
+                placeholder="Enter alert message"
+            >
+
+            <select id="alertLevel">
+
+                <option>Warning</option>
+                <option>Critical</option>
+                <option>Resolved</option>
+
+            </select>
+
+            <button
+                class="action"
+                onclick="addAlert()">
+                + Add Alert
+            </button>
+
+        </div>
+
+        <div id="allAlerts"></div>
+
+    </div>
+
+</section>
+
+
+<!-- CRITICAL -->
+<section id="Critical Alerts" class="page hidden">
+
+    <div class="panel">
+
+        <h2 class="section-title">
+            Critical Alerts
+        </h2>
+
+        <div id="criticalAlerts"></div>
+
+    </div>
+
+</section>
+
+
+<!-- WARNING -->
+<section id="Warning Alerts" class="page hidden">
+
+    <div class="panel">
+
+        <h2 class="section-title">
+            Warning Alerts
+        </h2>
+
+        <div id="warningAlerts"></div>
+
+    </div>
+
+</section>
+
+
+<!-- RESOLVED -->
+<section id="Resolved Alerts" class="page hidden">
+
+    <div class="panel">
+
+        <h2 class="section-title">
+            Resolved Alerts
+        </h2>
+
+        <div id="resolvedAlerts"></div>
+
+    </div>
+
+</section>
+
+
+<!-- AI DECISIONS -->
+<section id="AI Decisions" class="page hidden">
+
+    <div class="panel">
+
+        <h2 class="section-title">
+            AI Decisions
+        </h2>
+
+        <p>
+            Suggested action:
+            Check critical alerts first.
+        </p>
+
+        <br>
+
+        <p>
+            Suggested action:
+            Schedule maintenance for unavailable facilities.
+        </p>
+
+        <br>
+
+        <p>
+            Note:
+            These are demonstration suggestions,
+            not real AI predictions.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ANALYTICS -->
+<section id="Analytics" class="page hidden">
+
+    <div class="panel">
+
+        <h2 class="section-title">
+            Analytics
+        </h2>
+
+        <p>
+            Total facilities:
+            <strong id="analyticsFacilities">4</strong>
+        </p>
+
+        <br>
+
+        <p>
+            Total alerts:
+            <strong id="analyticsAlerts">3</strong>
+        </p>
+
+        <br>
+
+        <p>
+            Resolved alerts:
+            <strong id="analyticsResolved">1</strong>
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- PERFORMANCE -->
+<section id="Performance" class="page hidden">
+
+    <div class="panel">
+
+        <h2 class="section-title">
+            Performance
+        </h2>
+
+        <p>Dashboard: Running</p>
+
+        <br>
+
+        <p>Facility module: Available</p>
+
+        <br>
+
+        <p>Alert module: Available</p>
+
+    </div>
+
+</section>
+
+
+<!-- AI MODEL -->
+<section id="AI Model" class="page hidden">
+
+    <div class="panel">
+
+        <h2 class="section-title">
+            AI Model
+        </h2>
+
+        <p>
+            Demo mode:
+            AI integration is not configured.
+        </p>
+
+        <br>
+
+        <p>
+            Connect a trained model to enable
+            actual predictions.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- SYSTEM STATUS -->
+<section id="System Status" class="page hidden">
+
+    <div class="panel">
+
+        <h2 class="section-title">
+            System Status
+        </h2>
+
+        <p>
+            Frontend status: Running
+        </p>
+
+        <br>
+
+        <p>
+            Browser storage:
+            <span id="storageStatus">
+                Available
+            </span>
+        </p>
+
+        <br>
+
+        <p>
+            Backend status:
+            Not connected
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- DATABASE -->
+<section id="Database" class="page hidden">
+
+    <div class="panel">
+
+        <h2 class="section-title">
+            Database
+        </h2>
+
+        <p>
+            Current version:
+            Browser storage demo
+        </p>
+
+        <br>
+
+        <p>
+            MySQL connection:
+            Not configured
+        </p>
+
+        <p class="note">
+            Connect the Spring Boot backend
+            to save records in MySQL.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- USERS -->
+<section id="Users" class="page hidden">
+
+    <div class="panel">
+
+        <h2 class="section-title">
+            Users
+        </h2>
+
+        <p>
+            Admin - Campus Administrator
+        </p>
+
+        <br>
+
+        <p>
+            Staff - Facility Management
+        </p>
+
+        <br>
+
+        <p>
+            Student - G. Keerthiga
+        </p>
+
+    </div>
+
+</section>
+
+</main>
 </div>
-<div class="main">
-<div id="dashboard" class="page">
-<div class="card welcome">
-<h1>🎓 Uni Management - Smart Campus Faculty</h1>
-<div class="profile-box">
-<b>👤 Name: G. Keerthiga</b><br>
-<b>📚 Course: BCA 3rd Year</b><br>
-<b>📧 Email: gkeerthiga16@gmail.com</b><br>
-<b>🎓 Project: Uni Management Smart Campus Faculty</b>
-</div><br>
-<button class="btn btn-white" onclick="showPage('faculty',document.querySelectorAll('.sidebar a')[1])">👨‍🏫 Faculty Page - Click to Go Next</button>
-<button class="btn" style="background:rgba(255,255,255,.25)" onclick="showPage('library',document.querySelectorAll('.sidebar a')[3])">📚 Library - Next Page</button>
-<button class="btn" style="background:rgba(255,255,255,.25)" onclick="showPage('profile',document.querySelectorAll('.sidebar a')[6])">👤 My Profile</button>
-</div>
-<div class="grid">
-<div class="card" style="text-align:center"><h1>👨‍🏫</h1><h2>24 Faculty</h2><button class="btn" onclick="showPage('faculty',document.querySelectorAll('.sidebar a')[1])">View Next Page</button></div>
-<div class="card" style="text-align:center"><h1>📚</h1><h2>1250 Books</h2><button class="btn" onclick="showPage('library',document.querySelectorAll('.sidebar a')[3])">View Next Page</button></div>
-<div class="card" style="text-align:center"><h1>👤</h1><h2>G.Keerthiga</h2><p>BCA 3rd Year<br>gkeerthiga16@gmail.com</p><button class="btn" onclick="showPage('profile',document.querySelectorAll('.sidebar a')[6])">My Profile - Next</button></div>
-</div>
-</div>
-<div id="faculty" class="page hidden"><div class="card welcome"><h2>👨‍🏫 Faculty Management - Next Page Opened!</h2><br><button class="btn btn-white" onclick="showPage('students',document.querySelectorAll('.sidebar a')[2])">Next → Students</button> <button class="btn" style="background:rgba(255,255,255,.25)" onclick="showPage('dashboard',document.querySelectorAll('.sidebar a')[0])">← Back Home</button></div><div class="card" style="text-align:center"><h3>Dr. Ramesh - HOD</h3><button class="btn" onclick="showPage('profile',document.querySelectorAll('.sidebar a')[6])">View → Next Page</button></div></div>
-<div id="students" class="page hidden"><div class="card welcome"><h2>👩‍🎓 Students - Next Page!</h2><br><button class="btn btn-white" onclick="showPage('library',document.querySelectorAll('.sidebar a')[3])">Next → Library</button></div><div class="card">G.Keerthiga - gkeerthiga16@gmail.com - Class Rep<br><br><button class="btn" onclick="showPage('profile',document.querySelectorAll('.sidebar a')[6])">Go to My Profile - Next</button></div></div>
-<div id="library" class="page hidden"><div class="card welcome"><h2>📚 Library - Next Page! Button Worked!</h2><br><button class="btn btn-white" onclick="showPage('mybooks',document.querySelectorAll('.sidebar a')[4])">Next → My Books</button></div><div class="card"><div class="book"><b>AI Book</b><span style="margin-left:auto"><button class="btn" onclick="showPage('mybooks',document.querySelectorAll('.sidebar a')[4])">Borrow → Next Page</button></span></div></div></div>
-<div id="mybooks" class="page hidden"><div class="card welcome"><h2>📖 My Books - Next Page!</h2><br><button class="btn btn-white" onclick="showPage('ai',document.querySelectorAll('.sidebar a')[5])">Next → AI Page</button></div><div class="card"><b>G.Keerthiga - BCA 3rd Year - gkeerthiga16@gmail.com</b><br><br><button class="btn" onclick="showPage('profile',document.querySelectorAll('.sidebar a')[6])">My Profile - Next Page</button></div></div>
-<div id="ai" class="page hidden"><div class="card welcome"><h2>🤖 AI Assistant - Next Page!</h2><br><button class="btn btn-white" onclick="showPage('profile',document.querySelectorAll('.sidebar a')[6])">Next → My Profile</button></div></div>
-<div id="profile" class="page hidden"><div class="card welcome"><h2>👤 My Profile - Final Page! All Buttons Working!</h2><div class="profile-box" style="background:white;color:#333;margin-top:20px"><h3 style="color:#7c5cff">🎓 Uni Management - Smart Campus Faculty</h3><br><p><b>👤 Name:</b> G. Keerthiga</p><p><b>📚 Dept:</b> BCA 3rd Year</p><p><b>📧 Email:</b> gkeerthiga16@gmail.com</p><p><b>🎓 Title:</b> Uni Management Smart Campus Faculty</p><p><b>🔗 Link:</b> keerthiga888.github.io/smart-campus</p><br><p style="background:#f0e6ff;padding:10px;border-radius:10px;color:#7c5cff"><b>✅ All buttons working and going to next page - Video Model Same!</b></p></div><br><button class="btn btn-white" onclick="showPage('dashboard',document.querySelectorAll('.sidebar a')[0])">🏠 Home - Working</button></div></div>
-</div></div><script>function showPage(id,el){document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.sidebar a').forEach(a=>a.classList.remove('active'));if(el)el.classList.add('active');window.scrollTo(0,0)}</script></body></html>
+
+
+<script>
+
+let facilities = [
+
+    {
+        name: "Classroom",
+        location: "Block A",
+        status: "Available"
+    },
+
+    {
+        name: "Computer Lab",
+        location: "Block B",
+        status: "Available"
+    },
+
+    {
+        name: "Library",
+        location: "Block C",
+        status: "Available"
+    },
+
+    {
+        name: "Auditorium",
+        location: "Main Block",
+        status: "Maintenance"
+    }
+
+];
+
+
+let alerts = [
+
+    {
+        id: "A001",
+        message: "Server CPU Usage High",
+        level: "Critical"
+    },
+
+    {
+        id: "A002",
+        message: "Database Response Slow",
+        level: "Warning"
+    },
+
+    {
+        id: "A003",
+        message: "Water Supply Issue Resolved",
+        level: "Resolved"
+    }
+
+];
+
+
+function showPage(page, button) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach(section => {
+
+            section.classList.add("hidden");
+
+        });
+
+
+    document
+        .getElementById(page)
+        .classList.remove("hidden");
+
+
+    document
+        .getElementById("pageTitle")
+        .textContent =
+        page === "Dashboard"
+        ? "Smart Campus Dashboard"
+        : page;
+
+
+    document
+        .querySelectorAll(".sidebar button")
+        .forEach(btn => {
+
+            btn.classList.remove("active");
+
+        });
+
+
+    if (button) {
+        button.classList.add("active");
+    }
+
+
+    render();
+
+}
+
+
+function addFacility() {
+
+    const name =
+        document
+        .getElementById("facilityName")
+        .value
+        .trim();
+
+
+    const location =
+        document
+        .getElementById("facilityLocation")
+        .value
+        .trim();
+
+
+    const status =
+        document
+        .getElementById("facilityStatus")
+        .value;
+
+
+    if (!name || !location) {
+
+        alert(
+            "Please enter facility name and location."
+        );
+
+        return;
+
+    }
+
+
+    facilities.push({
+
+        name,
+        location,
+        status
+
+    });
+
+
+    document
+        .getElementById("facilityName")
+        .value = "";
+
+
+    document
+        .getElementById("facilityLocation")
+        .value = "";
+
+
+    render();
+
+    alert(
+        "Facility added successfully!"
+    );
+
+}
+
+
+function addAlert() {
+
+    const message =
+        document
+        .getElementById("alertMessage")
+        .value
+        .trim();
+
+
+    const level =
+        document
+        .getElementById("alertLevel")
+        .value;
+
+
+    if (!message) {
+
+        alert(
+            "Please enter an alert message."
+        );
+
+        return;
+
+    }
+
+
+    const nextId =
+        "A" +
+        String(
+
+            Math.max(
+                0,
+                ...alerts.map(
+                    a => Number(
+                        a.id.slice(1)
+                    )
+                )
+            ) + 1
+
+        ).padStart(3, "0");
+
+
+    alerts.push({
+
+        id: nextId,
+        message,
+        level
+
+    });
+
+
+    document
+        .getElementById("alertMessage")
+        .value = "";
+
+
+    render();
+
+    alert(
+        "Alert added successfully!"
+    );
+
+}
+
+
+function changeStatus(id, level) {
+
+    const item =
+        alerts.find(
+            a => a.id === id
+        );
+
+
+    if (item) {
+
+        item.level = level;
+
+        render();
+
+    }
+
+}
+
+
+function tableHTML(items) {
+
+    if (!items.length) {
+
+        return "<p>No alerts found.</p>";
+
+    }
+
+
+    return `
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>ID</th>
+                <th>Alert</th>
+                <th>Level</th>
+                <th>Action</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            ${items.map(a => `
+
+            <tr>
+
+                <td>${a.id}</td>
+
+                <td>
+                    ${escapeHTML(a.message)}
+                </td>
+
+                <td>
+
+                    <span
+                        class="status ${a.level}">
+                        ${a.level}
+                    </span>
+
+                </td>
+
+                <td>
+
+                    <select
+                        onchange=
+                        "changeStatus(
+                            '${a.id}',
+                            this.value
+                        )">
+
+                        <option
+                            ${a.level === "Critical"
+                            ? "selected" : ""}>
+                            Critical
+                        </option>
+
+                        <option
+                            ${a.level === "Warning"
+                            ? "selected" : ""}>
+                            Warning
+                        </option>
+
+                        <option
+                            ${a.level === "Resolved"
+                            ? "selected" : ""}>
+                            Resolved
+                        </option>
+
+                    </select>
+
+                </td>
+
+            </tr>
+
+            `).join("")}
+
+        </tbody>
+
+    </table>
+
+    `;
+
+}
+
+
+function escapeHTML(value) {
+
+    return value.replace(
+        /[&<>"']/g,
+        char => ({
+
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+
+        })[char]
+    );
+
+}
+
+
+function renderFacilities() {
+
+    document
+        .getElementById("facilityList")
+        .innerHTML =
+
+        facilities.map((f, i) => `
+
+        <div class="facility">
+
+            <h3>
+                🏢
+                ${escapeHTML(f.name)}
+            </h3>
+
+            <p>
+                Location:
+                ${escapeHTML(f.location)}
+            </p>
+
+            <p>
+                Status:
+                <strong>
+                    ${f.status}
+                </strong>
+            </p>
+
+            <button
+                class="action"
+                onclick="removeFacility(${i})">
+
+                Remove
+
+            </button>
+
+        </div>
+
+        `).join("");
+
+}
+
+
+function removeFacility(index) {
+
+    if (
+        confirm(
+            "Remove this facility?"
+        )
+    ) {
+
+        facilities.splice(index, 1);
+
+        render();
+
+    }
+
+}
+
+
+function bookMessage(bookName) {
+
+    alert(
+        "Book selected: " +
+        bookName +
+        "\nStudent: G. Keerthiga"
+    );
+
+}
+
+
+function render() {
+
+    document
+        .getElementById("facilityCount")
+        .textContent =
+        facilities.length;
+
+
+    document
+        .getElementById("alertCount")
+        .textContent =
+        alerts.length;
+
+
+    document
+        .getElementById("criticalCount")
+        .textContent =
+        alerts.filter(
+            a => a.level === "Critical"
+        ).length;
+
+
+    document
+        .getElementById("resolvedCount")
+        .textContent =
+        alerts.filter(
+            a => a.level === "Resolved"
+        ).length;
+
+
+    document
+        .getElementById("allAlerts")
+        .innerHTML =
+        tableHTML(alerts);
+
+
+    document
+        .getElementById("criticalAlerts")
+        .innerHTML =
+        tableHTML(
+            alerts.filter(
+                a => a.level === "Critical"
+            )
+        );
+
+
+    document
+        .getElementById("warningAlerts")
+        .innerHTML =
+        tableHTML(
+            alerts.filter(
+                a => a.level === "Warning"
+            )
+        );
+
+
+    document
+        .getElementById("resolvedAlerts")
+        .innerHTML =
+        tableHTML(
+            alerts.filter(
+                a => a.level === "Resolved"
+            )
+        );
+
+
+    document
+        .getElementById("recentAlerts")
+        .innerHTML =
+        tableHTML(
+            alerts
+            .slice(-5)
+            .reverse()
+        );
+
+
+    document
+        .getElementById("analyticsFacilities")
+        .textContent =
+        facilities.length;
+
+
+    document
+        .getElementById("analyticsAlerts")
+        .textContent =
+        alerts.length;
+
+
+    document
+        .getElementById("analyticsResolved")
+        .textContent =
+        alerts.filter(
+            a => a.level === "Resolved"
+        ).length;
+
+
+    renderFacilities();
+
+}
+
+
+render();
+
+</script>
+
+</body>
+</html>
+</html>
